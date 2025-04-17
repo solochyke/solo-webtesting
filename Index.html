@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwiftTrack Delivery</title>
+
+    <style>
+        /* Basic body styling */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+        }
+
+        /* Navigation menu styling */
+        .menu-button {
+            background-color: #34495e;
+            color: white;
+            padding: 0.8em 1.5em;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            width: 100%; /* Full width on smaller screens */
+            display: block; /* Make it a block-level element */
+        }
+
+        .menu-button:hover {
+            background-color: #4a6585;
+        }
+
+        .menu-items {
+            background-color: #34495e;
+            color: white;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            display: none; /* Initially hidden */
+        }
+
+        .menu-items.open {
+            display: block; /* Show the menu items when the 'open' class is added */
+        }
+
+        .menu-items li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.8em 1.5em;
+            display: block; /* Make each link a block for full width click area */
+        }
+
+        .menu-items li a:hover {
+            background-color: #4a6585;
+        }
+
+        /* Media query for larger screens to display as a horizontal nav */
+        @media (min-width: 768px) {
+            nav {
+                display: flex; /* Arrange children (menu button and items) in a row */
+                justify-content: center; /* Center the content horizontally */
+            }
+
+            .menu-button {
+                display: none; /* Hide the button on larger screens */
+            }
+
+            .menu-items {
+                display: flex; /* Arrange items horizontally */
+            }
+
+            .menu-items li {
+                display: inline; /* Make list items inline */
+            }
+
+            .menu-items li a {
+                display: inline-block; /* Adjust link display for spacing */
+            }
+        }
+
+        /* Hero section styling */
+        .hero {
+            background-image: url('delivery-hero.jpg'); /* Replace with the actual path to your image */
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 5em 0;
+        }
+
+        /* Hero section heading styling */
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 0.5em;
+        }
+
+        /* Hero section paragraph styling */
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 1.5em;
+        }
+
+        /* Hero section button styling */
+        .hero button {
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            padding: 1em 2em;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Hover effect for the hero button */
+        .hero button:hover {
+            background-color: #d35400;
+        }
+
+        /* Tracking section styling */
+        .tracking-section {
+            background-color: #fff;
+            padding: 2em;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 2em auto;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+
+        /* Tracking section heading styling */
+        .tracking-section h2 {
+            margin-bottom: 1em;
+            color: #2c3e50;
+        }
+
+        /* Tracking form styling */
+        .tracking-form {
+            display: flex;
+            gap: 1em;
+            margin-bottom: 1.5em;
+        }
+
+        /* Tracking input field styling */
+        .tracking-form input[type="text"] {
+            flex-grow: 1;
+            padding: 0.8em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        /* Tracking form button styling */
+        .tracking-form button {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 0.8em 1.5em;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Hover effect for the tracking form button */
+        .tracking-form button:hover {
+            background-color: #1e8449;
+        }
+
+        /* Tracking result area styling */
+        #tracking-result {
+            margin-top: 1.5em;
+            padding: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            text-align: left;
+        }
+
+        /* Services section styling */
+        .services-section {
+            padding: 2em;
+            text-align: center;
+            background-color: #ecf0f1;
+        }
+
+        /* Services section heading styling */
+        .services-section h2 {
+            color: #2c3e50;
+            margin-bottom: 1em;
+        }
+
+        /* Services grid layout */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5em;
+            margin-top: 1.5em;
+        }
+
+        /* Service card styling */
+        .service-card {
+            background-color: #fff;
+            padding: 1.5em;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            text-align: left;
+        }
+
+        /* Service card heading styling */
+        .service-card h3 {
+            color: #34495e;
+            margin-bottom: 0.5em;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #34495e;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>SwiftTrack Delivery</h1>
+    </header>
+
+    <nav>
+        <button class="menu-button" onclick="toggleMenu()">Menu</button>
+        <ul class="menu-items">
+            <li><a href="#">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#track">Track Package</a></li>
+            <li><a href="#">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h1>Fast and Reliable Delivery Services</h1>
+        <p>Your trusted partner for all your shipping needs.</p>
+        <button>Get a Quote</button>
+    </section>
+
+    <section id="track" class="tracking-section">
+        <h2>Track Your Package</h2>
+        <form class="tracking-form" id="trackForm">
+            <input type="text" id="trackingNumber" placeholder="Enter your tracking number">
+            <button type="button" onclick="trackPackage()">Track</button>
+        </form>
+        <div id="tracking-result">
+            </div>
+    </section>
+
+    <section id="services" class="services-section">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Express Delivery</h3>
+                <p>Fast and efficient delivery for urgent shipments.</p>
+            </div>
+            <div class="service-card">
+                <h3>Standard Shipping</h3>
+                <p>Cost-effective delivery for your everyday needs.</p>
+            </div>
+            <div class="service-card">
+                <h3>International Shipping</h3>
+                <p>Reliable shipping solutions across the globe.</p>
+            </div>
+            <div class="service-card">
+                <h3>Same-Day Delivery</h3>
+                <p>Get your packages delivered within the same day (within select areas).</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2015 SwiftTrack Delivery. All rights reserved by Solomon chyke.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menuItems = document.querySelector('.menu-items');
+            menuItems.classList.toggle('open');
+        }
+
+        function trackPackage() {
+            const trackingNumberInput = document.getElementById('trackingNumber');
+            const trackingNumber = trackingNumberInput.value.trim();
+            const trackingResultDiv = document.getElementById('tracking-result');
+
+            if (trackingNumber === "") {
+                trackingResultDiv.innerHTML = "<p>Please enter a valid tracking number.</p>";
+                return;
+            }
+
+            // Simulate fetching tracking data (replace with your actual API call)
+            setTimeout(() => {
+                const randomStatus = ["In Transit", "Out for Delivery", "Delivered", "Processing", "Delayed"];
+                const randomLocation = ["Lagos, Nigeria", "Abuja, Nigeria", "Kano, Nigeria", "Port Harcourt, Nigeria"];
+                const randomIndex = Math.floor(Math.random() * randomStatus.length);
+                const status = randomStatus[randomIndex];
+                const location = randomLocation[Math.floor(Math.random() * randomLocation.length)];
+                const deliveryDate = new Date(Date.now() + (Math.random() * 7 * 24 * 60 * 60 * 1000)).toLocaleDateString();
+
+                let resultHTML = `<h3>Tracking Number: ${trackingNumber}</h3>`;
+                resultHTML += `<p><strong>Status:</strong> ${status}</p>`;
+                resultHTML += `<p><strong>Current Location:</strong> ${location}</p>`;
+                if (status === "Delivered") {
+                    resultHTML += `<p><strong>Delivered On:</strong> ${deliveryDate}</p>`;
+                } else if (status === "Out for Delivery") {
+                    resultHTML += `<p><strong>Expected Delivery:</strong> Today</p>`;
+                } else {
+                    resultHTML += `<p><strong>Estimated Delivery:</strong> ${deliveryDate}</p>`;
+                }
+
+                trackingResultDiv.innerHTML = resultHTML;
+            }, 1500); // Simulate a 1.5-second delay for API response
+
+            trackingResultDiv.innerHTML = "<p>Loading tracking information...</p>";
+            trackingNumberInput.value = ""; // Clear the input field
+        }
+    </script>
+
+</body>
+</html>
